@@ -15,7 +15,7 @@ This simulation will incorporate several mvps and bonus features outlined in the
 
 With this Josh's Stratego, users will be able to:
 
-- [ ] Start out with pieces setup in random positions, or let users setup piece positions.
+- [ ] Start out with pieces setup in random positions, or let users setup board positions.
 - [ ] Click on the pieces and move them to positions that are valid. 
 
 In addition, this project will include:
@@ -28,8 +28,7 @@ In addition, this project will include:
 This app will consist of a single screen with game board, and nav links to the Github, my LinkedIn,
 and the About modal.
 
-![wireframes]
-[](stratego.png?raw=true)
+![wireframes](https://github.com/jprpich/stratego/blob/master/stratego.png)
 
 ### Architecture and Technologies
 
