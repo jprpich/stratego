@@ -6,26 +6,26 @@ class GameView {
   }
 
   drawTile(x, y){
-    // debugger
     this.ctx.fillStyle = 'brown';
     this.ctx.fillRect(x, y, 40, 40);
   }
 
   drawPiece(clientX, clientY, x, y) {
+    let gridY = ((x-510) / 50);
+    let gridX = ((y-85) / 50);
+
     if (clientX >= x -10  && clientX < x + 30 && clientY >= y - 5 && clientY < y + 35 ) {
-      // base on x and y pos figure out index of board.grid 
-      // figure out how to print test inside that rectangle 
       this.ctx.fillStyle = 'white';
       this.ctx.fillRect(x, y, 20, 30);
       this.ctx.fillStyle = "blue";
       this.ctx.font = "20px Comic Sans MS";
-      this.ctx.fillText(this.board.grid[3][2],x+5,y+25);
+      this.ctx.fillText(this.board.grid[gridX][gridY],x+5,y+22);
     } else {
       this.ctx.fillStyle = 'blue';
       this.ctx.fillRect(x, y, 20, 30);
       this.ctx.fillStyle = "white";
       this.ctx.font = "20px Comic Sans MS";
-      this.ctx.fillText(this.board.grid[3][2],x+5,y+25);
+      this.ctx.fillText(this.board.grid[gridX][gridY],x+5,y+22);
     }
   }
 
@@ -56,14 +56,11 @@ class GameView {
   }
 
   start(){
-    // paint the starting canvas
     this.game.sayHello()
     this.paintCanvas()
     const canvas = document.getElementById("mycanvas")
     canvas.addEventListener("click", (e) => {
-      // debugger
       this.ctx.clearRect(0, 0, canvas.width, canvas.height);
-      // repaint the canvas
       this.paintCanvas(e.offsetX, e.offsetY)
     })
   }
