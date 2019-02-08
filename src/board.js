@@ -2,6 +2,7 @@ class Board {
   constructor(){
     this.pieces = [1,2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
     this.grid = []  
+    this.selected = "";
     this.distributePieces()
   }
 
@@ -24,6 +25,14 @@ class Board {
       this.grid.push(subArr)
     }
   }
+
+  selectedPiece(x,y){
+    this.selected = this.grid[x][y]
+    this.selectedX = x; 
+    this.selectedY = y;
+  }
+
+
 
 }
 

@@ -1,7 +1,6 @@
 class GameView {
-  constructor(game,board, ctx){
+  constructor(board, ctx){
     this.ctx = ctx;
-    this.game = game;
     this.board = board;
   }
 
@@ -13,8 +12,10 @@ class GameView {
   drawPiece(clientX, clientY, x, y) {
     let gridY = ((x-510) / 50);
     let gridX = ((y-85) / 50);
-
-    if (clientX >= x -10  && clientX < x + 30 && clientY >= y - 5 && clientY < y + 35 ) {
+    if (this.board.selectedX === gridX && this.board.selectedY === gridY){
+      return;
+    } else if (clientX >= x -10  && clientX < x + 30 && clientY >= y - 5 && clientY < y + 35 ) {
+      this.board.selectedPiece(gridX, gridY)
       this.ctx.fillStyle = 'white';
       this.ctx.fillRect(x, y, 20, 30);
       this.ctx.fillStyle = "blue";
@@ -56,7 +57,6 @@ class GameView {
   }
 
   start(){
-    this.game.sayHello()
     this.paintCanvas()
     const canvas = document.getElementById("mycanvas")
     canvas.addEventListener("click", (e) => {
