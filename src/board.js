@@ -26,11 +26,17 @@ class Board {
     }
   }
 
-  selectedPiece(x,y){
+  selectPiece(x,y){
     this.selected = this.grid[x][y]
     this.selectedX = x; 
     this.selectedY = y;
   }
+
+  // have to keep track of newselectedPiece
+  // and oldselectedPiece 
+
+  // valid move
+  // new selected has to be empty
 
 
 

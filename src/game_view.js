@@ -15,7 +15,7 @@ class GameView {
     if (this.board.selectedX === gridX && this.board.selectedY === gridY){
       return;
     } else if (clientX >= x -10  && clientX < x + 30 && clientY >= y - 5 && clientY < y + 35 ) {
-      this.board.selectedPiece(gridX, gridY)
+      this.board.selectPiece(gridX, gridY)
       this.ctx.fillStyle = 'white';
       this.ctx.fillRect(x, y, 20, 30);
       this.ctx.fillStyle = "blue";
