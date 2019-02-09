@@ -1,7 +1,7 @@
 class GameView {
   constructor(board, ctx){
-    this.ctx = ctx;
     this.board = board;
+    this.ctx = ctx;
   }
 
   drawTile(x, y){
@@ -9,29 +9,42 @@ class GameView {
     this.ctx.fillRect(x, y, 40, 40);
   }
 
-  drawPiece(clientX, clientY, x, y) {
-    let gridY = ((x-510) / 50);
-    let gridX = ((y-85) / 50);
-    if (this.board.selectedX === gridX && this.board.selectedY === gridY){
-      return;
-    } else if (clientX >= x -10  && clientX < x + 30 && clientY >= y - 5 && clientY < y + 35 ) {
-      this.board.selectPiece(gridX, gridY)
-      this.ctx.fillStyle = 'white';
-      this.ctx.fillRect(x, y, 20, 30);
-      this.ctx.fillStyle = "blue";
-      this.ctx.font = "20px Comic Sans MS";
-      this.ctx.fillText(this.board.grid[gridX][gridY],x+5,y+22);
+  drawPieces(offsetX, offsetY, x, y) {
+    let idx1 = ((y-85) / 50);
+    let idx2 = ((x-510) / 50);
+    if (this.board.selectedIdx1 === idx1 && this.board.selectedIdx2 === idx2){
+      this.board.grid[idx1][idx2] = ""
+      this.drawPiece('blue', 'white',idx1, idx2, x, y)
+    } else if (offsetX >= x -10  && offsetX < x + 30 && offsetY >= y - 5 && offsetY < y + 35 ) {
+      if (this.board.selected) {
+        this.ctx.fillStyle = 'white';
+        this.ctx.fillRect(x, y, 20, 30);
+        this.ctx.fillStyle = 'blue';
+        this.ctx.font = "20px Comic Sans MS";
+        this.ctx.fillText(this.board.selected,x+5,y+22);
+        this.board.grid[idx1][idx2] = this.board.selected;
+        this.board.selected = ""
+        this.board.selectedIdx1 = ""
+        this.board.selectedIdx2 = ""
+      } else {
+        this.board.selectPiece(idx1, idx2)
+        this.drawPiece('white', 'blue',idx1, idx2, x, y)
+      }   
     } else {
-      this.ctx.fillStyle = 'blue';
-      this.ctx.fillRect(x, y, 20, 30);
-      this.ctx.fillStyle = "white";
-      this.ctx.font = "20px Comic Sans MS";
-      this.ctx.fillText(this.board.grid[gridX][gridY],x+5,y+22);
+      this.drawPiece('blue', 'white', idx1, idx2, x, y)
     }
+
   }
 
-  paintCanvas(clientX, clientY){
-    // create 100 tiles 
+  drawPiece(backgroundColor,textColor,idx1, idx2, x, y){
+    this.ctx.fillStyle = backgroundColor;
+    this.ctx.fillRect(x, y, 20, 30);
+    this.ctx.fillStyle = textColor;
+    this.ctx.font = "20px Comic Sans MS";
+    this.ctx.fillText(this.board.grid[idx1][idx2],x+5,y+22);
+  }
+
+  paintCanvas(offsetX, offsetY){
     let x = 500;
     let y = 80;
     for (let j = 0; j < 10; j++) {
@@ -43,12 +56,11 @@ class GameView {
       y += 50
     } 
 
-    // create 40 pieces 
     x = 510;
     y = 85;
-    for (let j = 0; j < 4; j++) {
+    for (let j = 0; j < 6; j++) {
       for (let i = 0; i < 10; i++) {
-        this.drawPiece(clientX, clientY, x, y);
+        this.drawPieces(offsetX, offsetY, x, y);
         x += 50
       }
       x = 510  
