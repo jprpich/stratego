@@ -14,34 +14,29 @@ class GameView {
     let idx2 = ((x-510) / 50);
     if (this.board.selectedIdx1 === idx1 && this.board.selectedIdx2 === idx2){
       this.board.grid[idx1][idx2] = ""
-      this.drawPiece('blue', 'white',idx1, idx2, x, y)
+      this.drawPiece('blue', 'white',this.board.grid[idx1][idx2], x, y)
     } else if (offsetX >= x -10  && offsetX < x + 30 && offsetY >= y - 5 && offsetY < y + 35 ) {
-      if (this.board.selected) {
-        this.ctx.fillStyle = 'white';
-        this.ctx.fillRect(x, y, 20, 30);
-        this.ctx.fillStyle = 'blue';
-        this.ctx.font = "20px Comic Sans MS";
-        this.ctx.fillText(this.board.selected,x+5,y+22);
+      
+      if (this.board.selected != "") {
+        this.drawPiece('white', 'blue',this.board.selected, x, y)
         this.board.grid[idx1][idx2] = this.board.selected;
         this.board.selected = ""
-        this.board.selectedIdx1 = ""
-        this.board.selectedIdx2 = ""
       } else {
         this.board.selectPiece(idx1, idx2)
-        this.drawPiece('white', 'blue',idx1, idx2, x, y)
+        this.drawPiece('white', 'blue',this.board.grid[idx1][idx2], x, y)
       }   
     } else {
-      this.drawPiece('blue', 'white', idx1, idx2, x, y)
+      this.drawPiece('blue', 'white', this.board.grid[idx1][idx2], x, y)
     }
 
   }
 
-  drawPiece(backgroundColor,textColor,idx1, idx2, x, y){
+  drawPiece(backgroundColor,textColor,val, x, y){
     this.ctx.fillStyle = backgroundColor;
     this.ctx.fillRect(x, y, 20, 30);
     this.ctx.fillStyle = textColor;
     this.ctx.font = "20px Comic Sans MS";
-    this.ctx.fillText(this.board.grid[idx1][idx2],x+5,y+22);
+    this.ctx.fillText(val,x+5,y+22);
   }
 
   paintCanvas(offsetX, offsetY){
@@ -58,7 +53,7 @@ class GameView {
 
     x = 510;
     y = 85;
-    for (let j = 0; j < 6; j++) {
+    for (let j = 0; j < 10; j++) {
       for (let i = 0; i < 10; i++) {
         this.drawPieces(offsetX, offsetY, x, y);
         x += 50
