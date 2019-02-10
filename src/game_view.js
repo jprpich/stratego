@@ -10,26 +10,43 @@ class GameView {
   }
 
   drawPieces(offsetX, offsetY, x, y) {
-    let idx1 = ((y-85) / 50);
-    let idx2 = ((x-510) / 50);
-    if (this.board.selectedIdx1 === idx1 && this.board.selectedIdx2 === idx2){
-      this.board.grid[idx1][idx2] = ""
-      this.drawPiece('blue', 'white',this.board.grid[idx1][idx2], x, y)
+    
+    let row = ((y-85) / 50);
+    let column = ((x-510) / 50);
+    if (this.board.selectedRow === row && this.board.selectedColumn === column){
+      
+      let nextRow = Math.floor(((offsetY-85) / 50))
+      let nextColumn = Math.floor(((offsetX-510) / 50))
+      if (this.board.validMove(nextRow, nextColumn,row ,column )) {
+        this.board.grid[row][column] = ""
+        this.drawPiece('blue', 'white',this.board.grid[row][column], x, y)
+
+      } else {
+        this.drawPiece('blue', 'white',this.board.grid[row][column], x, y)
+        // this.board.selected = ""
+      }
+      
     } else if (offsetX >= x -10  && offsetX < x + 30 && offsetY >= y - 5 && offsetY < y + 35 ) {
       
       if (this.board.selected != "") {
-        this.drawPiece('white', 'blue',this.board.selected, x, y)
-        this.board.grid[idx1][idx2] = this.board.selected;
-        this.board.selected = ""
+        if (this.board.validMove(row, column,this.board.selectedRow, this.board.selectedColumn)){
+          this.drawPiece('blue', 'white',this.board.selected, x, y)
+          this.board.grid[row][column] = this.board.selected;
+          this.board.selected = ""
+        } else {
+          this.drawPiece('blue', 'white',this.board.grid[row][column], x, y)
+          this.board.selected = ""
+        }
+        
       } else {
-        this.board.selectPiece(idx1, idx2)
-        this.drawPiece('white', 'blue',this.board.grid[idx1][idx2], x, y)
+        this.board.selectPiece(row, column)
+        this.drawPiece('white', 'blue',this.board.grid[row][column], x, y)
       }   
     } else {
-      this.drawPiece('blue', 'white', this.board.grid[idx1][idx2], x, y)
+      this.drawPiece('blue', 'white', this.board.grid[row][column], x, y)
     }
 
-  }
+  } 
 
   drawPiece(backgroundColor,textColor,val, x, y){
     this.ctx.fillStyle = backgroundColor;

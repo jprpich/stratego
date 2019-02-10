@@ -42,16 +42,21 @@ class Board {
     }
   }
 
-  selectPiece(idx1,idx2){
-    this.selected = this.grid[idx1][idx2]
-    this.selectedIdx1 = idx1; 
-    this.selectedIdx2 = idx2;
+  selectPiece(row,column){
+    this.selected = this.grid[row][column]
+    this.selectedRow = row; 
+    this.selectedColumn = column;
   }
 
-  prevSelectPiece(x,y){
-    this.prevSelected = this.grid[x,y]
-    this.prevSelectedX = x;
-    this.prevSelectedY = y;
+  validMove(row, column, selectedRow, selectedColumn){
+    if (row != selectedRow && column != selectedColumn){
+      return false 
+    }
+    if ((this.grid[row][column] === "") && (selectedRow +1 >= row && row +1 >= selectedRow ) && (selectedColumn +1 >= column && column +1 >= selectedColumn )) {
+      return true; 
+    } else {
+      return false; 
+    }
   }
 
 
