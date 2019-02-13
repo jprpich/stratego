@@ -1,11 +1,10 @@
-const GameView = require("./game_view");
 const Board = require("./board");
+const Game = require("./game");
 
 document.addEventListener("DOMContentLoaded", function(){
-  const canvas = document.getElementById("mycanvas")
-  let ctx = canvas.getContext('2d');
-  const board = new Board();
-  new GameView(board, ctx).start();
+  var canvas = document.getElementById("myCanvas");
+  var ctx = canvas.getContext("2d");
+  const board = new Board(ctx, canvas)
+  new Game(board)
 
-});
-
+})

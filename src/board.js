@@ -1,72 +1,93 @@
+const Piece = require("./piece");
+
 class Board {
-  constructor(){
-    this.pieces = [1,2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,'F',9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
-    this.grid = []  
-    this.selected = "";
-    this.prevSelected = "";
-    this.distributePieces();
-  }
+  constructor(ctx, canvas){
+    this.ctx = ctx;
+    this.canvas = canvas;
 
-  shuffle(a) {
-    for (let i = a.length - 1; i > 0; i--) {
-        const j = Math.floor(Math.random() * (i + 1));
-        [a[i], a[j]] = [a[j], a[i]];
-    }
-    return a;
-  }
+    this.tiles = []
+    this.pieces = [1,2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,'F','S','B','B','B','B','B','B',9,9,9,9,9,9,9,9,9,9,9]
+    this.createPieces()
 
-  distributePieces(){
-    this.shuffle(this.pieces)
-    for (let j = 0; j < 4; j++) {
-      let subArr = []
-      for (let i = 0; i < 10; i++) { 
-        subArr.push(this.pieces.pop())
+    this.tileWidth = 45;
+    this.tileHeight = 45;
+    this.tilePadding = 10;
+    this.tileOffsetTop = 50;
+    this.tileOffsetLeft = 50;
+    this.previousPiece = null;
+    this.previosRow = null;
+    this.previousColumn = null;
+    this.previousClick = true; 
+  }
+  
+  createPieces(){
+    let piece;
+
+    for(var r=0; r<4; r++) {
+      this.tiles[r] = [];
+      for(var c=0; c<10; c++) {
+        piece = new Piece("Player 1", this.pieces.pop(), "white", false)
+        this.tiles[r][c] = piece
       }
-      this.grid.push(subArr)
     }
-    for (let j = 0; j < 2; j++) {
-      let subArr = []
-      for (let i = 0; i < 10; i++) { 
-        subArr.push("")
+
+    for(var r=4; r<6; r++) {
+      this.tiles[r] = [];
+      for(var c=0; c<10; c++) {
+        this.tiles[r][c] = null
       }
-      this.grid.push(subArr)
     }
-    this.pieces = [1,2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,'F',9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9,9]
-    this.shuffle(this.pieces)
-    for (let j = 0; j < 4; j++) {
-      let subArr = []
-      for (let i = 0; i < 10; i++) { 
-        subArr.push(this.pieces.pop())
+
+    this.pieces = [1,2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,'F','S','B','B','B','B','B','B',9,9,9,9,9,9,9,9,9,9,9]
+    for(var r=6; r<10; r++) {
+      this.tiles[r] = [];
+      for(var c=0; c<10; c++) {
+        piece = new Piece("Player 2", this.pieces.pop(), "black", false)
+        this.tiles[r][c] = piece
       }
-      this.grid.push(subArr)
     }
   }
 
-  selectPiece(row,column){
-    this.selected = this.grid[row][column]
-    this.selectedRow = row; 
-    this.selectedColumn = column;
-  }
-
-  validMove(row, column, selectedRow, selectedColumn){
-    if (row != selectedRow && column != selectedColumn){
-      return false 
+  validMove(currentColumn,currentRow, previousRow,previousColumn){
+    if(previousColumn != currentColumn && previousRow != currentRow){
+      return false;
     }
-    if ((this.grid[row][column] === "") && (selectedRow +1 >= row && row +1 >= selectedRow ) && (selectedColumn +1 >= column && column +1 >= selectedColumn )) {
-      return true; 
+    if(this.tiles[currentRow][currentColumn] == null && currentRow <= previousRow + 1 && currentRow >= previousRow -1 && currentColumn <= this.previousColumn + 1 && currentColumn >= this.previousColumn - 1){
+      return true 
     } else {
-      return false; 
+      return false;
     }
   }
 
+  render(){
+    this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    this.drawTiles();
+  }
 
-
-  // have to keep track of newselectedPiece
-  // and oldselectedPiece 
-
-  // valid move
-  // new selected has to be empty
-
+  drawTiles(){
+    for(var r=0; r<10; r++) {
+      for(var c=0; c<10; c++) {
+        var tileX = (c*(this.tileHeight+this.tilePadding))+this.tileOffsetTop;
+        var tileY = (r*(this.tileWidth+this.tilePadding))+this.tileOffsetLeft;
+        this.ctx.beginPath();
+        this.ctx.rect(tileX, tileY, this.tileWidth, this.tileHeight);
+          
+        if(this.tiles[r][c] && this.tiles[r][c].selected){
+          this.ctx.fillStyle = "blue"
+        } else {
+          this.ctx.fillStyle = "red"
+        }
+                 
+        this.ctx.fill();
+        if (this.tiles[r][c]){
+          this.ctx.fillStyle = this.tiles[r][c].color;
+          this.ctx.font = "26px Arial";
+          this.ctx.fillText(this.tiles[r][c].rank, tileX+15, tileY+30);
+        }
+        this.ctx.closePath();        
+      }
+    }
+  }
 }
 
 module.exports = Board;
