@@ -18,6 +18,8 @@ class Board {
     this.previosRow = null;
     this.previousColumn = null;
     this.previousClick = true; 
+
+    this.currentPlayer = "Player 1";
   }
   
   createPieces(){
@@ -38,7 +40,7 @@ class Board {
       }
     }
 
-    this.pieces = [1,2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,'F','S','B','B','B','B','B','B',9,9,9,9,9,9,9,9,9,9,9]
+    this.pieces = [9,2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,'F','S','B','B','B','B','B','B',9,9,9,9,9,9,9,9,9,9,1]
     for(var r=6; r<10; r++) {
       this.tiles[r] = [];
       for(var c=0; c<10; c++) {
@@ -49,10 +51,23 @@ class Board {
   }
 
   validMove(currentColumn,currentRow, previousRow,previousColumn){
+
+    const previousPlayer = this.tiles[previousRow][previousColumn].player
+    let nextPlayer;
+
+    if (this.tiles[currentRow][currentColumn]){
+      nextPlayer = this.tiles[currentRow][currentColumn].player
+    }
+    
+    if ( previousPlayer != this.currentPlayer){
+      return false;
+    }
+
     if(previousColumn != currentColumn && previousRow != currentRow){
       return false;
     }
-    if(this.tiles[currentRow][currentColumn] == null && currentRow <= previousRow + 1 && currentRow >= previousRow -1 && currentColumn <= this.previousColumn + 1 && currentColumn >= this.previousColumn - 1){
+
+    if((this.tiles[currentRow][currentColumn] == null || nextPlayer !== this.currentPlayer) && currentRow <= previousRow + 1 && currentRow >= previousRow -1 && currentColumn <= this.previousColumn + 1 && currentColumn >= this.previousColumn - 1){
       return true 
     } else {
       return false;
@@ -62,6 +77,7 @@ class Board {
   render(){
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawTiles();
+    this.drawCurrentPlayer();
   }
 
   drawTiles(){
@@ -87,6 +103,11 @@ class Board {
         this.ctx.closePath();        
       }
     }
+  }
+
+  drawCurrentPlayer(){
+    this.ctx.font = "30px Arial";
+    this.ctx.fillText(this.currentPlayer + "'s Turn!", 20, 30);
   }
 }
 
