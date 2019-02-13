@@ -27,6 +27,7 @@ class Game {
           // check to see who wins the attack 
           if (this.board.tiles[row][column]) {
             // alert("attacking!")
+            
             if (this.board.tiles[this.board.previousRow][this.board.previousColumn].rank < this.board.tiles[row][column].rank){
               // alert(`${this.board.tiles[this.board.previousRow][this.board.previousColumn].player} wins!`)
               printMove();

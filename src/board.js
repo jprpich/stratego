@@ -44,7 +44,7 @@ class Board {
     for(var r=6; r<10; r++) {
       this.tiles[r] = [];
       for(var c=0; c<10; c++) {
-        piece = new Piece("Player 2", this.pieces.pop(), "black", false)
+        piece = new Piece("Player 2", this.pieces.pop(), "#401b0f", false)
         this.tiles[r][c] = piece
       }
     }
@@ -75,7 +75,13 @@ class Board {
   }
 
   render(){
+    
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    var grd = this.ctx.createLinearGradient(0, 0, 890, 0);
+    grd.addColorStop(0, "#ccb16b");
+    grd.addColorStop(1, "#8a9d52");
+    this.ctx.fillStyle = grd;
+    this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawTiles();
     this.drawCurrentPlayer();
   }
@@ -89,9 +95,9 @@ class Board {
         this.ctx.rect(tileX, tileY, this.tileWidth, this.tileHeight);
           
         if(this.tiles[r][c] && this.tiles[r][c].selected){
-          this.ctx.fillStyle = "blue"
+          this.ctx.fillStyle = "#c9af74"
         } else {
-          this.ctx.fillStyle = "red"
+          this.ctx.fillStyle = "#c7433d"
         }
                  
         this.ctx.fill();
@@ -107,8 +113,10 @@ class Board {
 
   drawCurrentPlayer(){
     this.ctx.font = "30px Arial";
+    this.ctx.fillStyle = "#401b0f";
     this.ctx.fillText(this.currentPlayer + "'s Turn!", 20, 30);
   }
+
 }
 
 module.exports = Board;
