@@ -9,50 +9,56 @@ class Game {
     document.addEventListener("click", (e) => {
       let row = Math.floor(((e.offsetY-50) / 55))
       let column = Math.floor(((e.offsetX-50) / 55))
-      if(this.board.tiles[row][column] && this.board.previousClick){
-        this.board.tiles[row][column].selected = true;
-        this.board.previousPiece = this.board.tiles[row][column];
-        this.board.previousRow = row;
-        this.board.previousColumn = column;
-        this.board.previousClick = false;
+      this.board.currentPiece = this.board.tiles[row][column]
+
+      if(this.board.currentPiece && this.board.previousClick){
+        this.selectPiece(row, column);
       } else {
-        if (this.board.validMove(column, row, this.board.previousRow, this.board.previousColumn )){
-          let printMove = () => {
-            this.board.tiles[row][column] = this.board.previousPiece;
-            this.board.tiles[row][column].selected = false;
-            this.board.tiles[this.board.previousRow][this.board.previousColumn] = null;
-            this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
-          }
-
-          // check to see who wins the attack 
-          if (this.board.tiles[row][column]) {
-            // alert("attacking!")
-            
-            if (this.board.tiles[this.board.previousRow][this.board.previousColumn].rank < this.board.tiles[row][column].rank){
-              // alert(`${this.board.tiles[this.board.previousRow][this.board.previousColumn].player} wins!`)
-              printMove();
+        if (this.board.validMove(row, column, this.board.previousRow, this.board.previousColumn )){
+          if (this.board.currentPiece) {
+            if(this.board.currentPiece.rank === "F"){
+              alert(`${this.board.previousPiece.player} wins!`)
+              document.location.reload();
+            }           
+            if (this.board.previousPiece.rank < this.board.currentPiece.rank){
+              this.showWin(row,column,this.board.previousRow, this.board.previousColumn);
             } else {
-              // alert(`${this.board.tiles[row][column].player} wins!`)
-              this.board.tiles[this.board.previousRow][this.board.previousColumn] = null;
-              this.board.tiles[row][column].selected = false;
-              this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
+              this.showLose(this.board.previousRow, this.board.previousColumn);
             }
-
-
           } else {
-            printMove();
+            this.showWin(row,column,this.board.previousRow, this.board.previousColumn);
           }
-
-          
         } else {
-          this.board.tiles[this.board.previousRow][this.board.previousColumn].selected =  false;
+          this.board.previousPiece.selected =  false;
           alert("invalid move")
         }
+        
         this.board.previousClick = true;
       }
 
       this.board.render();
     })
+  }
+
+  showWin(row, column, previousRow, previousColumn){
+    this.board.tiles[row][column] = this.board.previousPiece;
+    this.board.previousPiece.selected = false;
+    this.board.tiles[previousRow][previousColumn] = null;
+    this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
+  }
+
+  showLose(previousRow, previousColumn){
+    this.board.tiles[previousRow][previousColumn] = null;
+    this.board.currentPiece.selected = false;
+    this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
+  }
+
+  selectPiece(row, column){
+    this.board.currentPiece.selected = true;
+    this.board.previousPiece = this.board.currentPiece;
+    this.board.previousRow = row;
+    this.board.previousColumn = column;
+    this.board.previousClick = false;
   }
 
 }

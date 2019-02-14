@@ -6,7 +6,7 @@ class Board {
     this.canvas = canvas;
 
     this.tiles = []
-    this.pieces = [1,2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,'F','S','B','B','B','B','B','B',9,9,9,9,9,9,9,9,9,9,9]
+    this.pieces = ["F",2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,1,'S','B','B','B','B','B','B',9,9,9,9,9,9,9,9,9,9,9]
     this.createPieces()
 
     this.tileWidth = 45;
@@ -14,17 +14,34 @@ class Board {
     this.tilePadding = 10;
     this.tileOffsetTop = 50;
     this.tileOffsetLeft = 50;
+
     this.previousPiece = null;
     this.previosRow = null;
     this.previousColumn = null;
+
+    this.currentPiece = null;
+    this.currentRow = null;
+    this.currentColumn = null;
+
     this.previousClick = true; 
 
     this.currentPlayer = "Player 1";
   }
+
+  shuffle(a) {
+    var j, x, i;
+    for (i = a.length - 1; i > 0; i--) {
+        j = Math.floor(Math.random() * (i + 1));
+        x = a[i];
+        a[i] = a[j];
+        a[j] = x;
+    }
+    return a;
+  }
   
   createPieces(){
     let piece;
-
+    this.shuffle(this.pieces);
     for(var r=0; r<4; r++) {
       this.tiles[r] = [];
       for(var c=0; c<10; c++) {
@@ -40,7 +57,8 @@ class Board {
       }
     }
 
-    this.pieces = [9,2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,'F','S','B','B','B','B','B','B',9,9,9,9,9,9,9,9,9,9,1]
+    this.pieces = [9,2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,9,'S','B','B','B','B','B','B',9,9,9,9,9,9,9,9,9,"F",1]
+    this.shuffle(this.pieces)
     for(var r=6; r<10; r++) {
       this.tiles[r] = [];
       for(var c=0; c<10; c++) {
@@ -50,7 +68,7 @@ class Board {
     }
   }
 
-  validMove(currentColumn,currentRow, previousRow,previousColumn){
+  validMove(currentRow, currentColumn, previousRow, previousColumn){
 
     const previousPlayer = this.tiles[previousRow][previousColumn].player
     let nextPlayer;
