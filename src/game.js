@@ -22,7 +22,10 @@ class Game {
             }           
             if (this.board.previousPiece.rank < this.board.currentPiece.rank){
               this.showWin(row,column,this.board.previousRow, this.board.previousColumn);
-            } else {
+            } else if(this.board.previousPiece.rank === this.board.currentPiece.rank){
+              this.showTie(row,column,this.board.previousRow, this.board.previousColumn)
+            } 
+            else {
               this.showLose(this.board.previousRow, this.board.previousColumn);
             }
           } else {
@@ -38,6 +41,13 @@ class Game {
 
       this.board.render();
     })
+  }
+
+  showTie(row, column, previousRow, previousColumn){
+    this.board.tiles[previousRow][previousColumn] = null;
+    this.board.tiles[row][column] = null;
+    this.board.currentPiece.selected = false;
+    this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
   }
 
   showWin(row, column, previousRow, previousColumn){

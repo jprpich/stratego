@@ -18,13 +18,10 @@ class Board {
     this.previousPiece = null;
     this.previosRow = null;
     this.previousColumn = null;
-
     this.currentPiece = null;
     this.currentRow = null;
     this.currentColumn = null;
-
     this.previousClick = true; 
-
     this.currentPlayer = "Player 1";
   }
 
@@ -70,14 +67,7 @@ class Board {
 
   validMove(currentRow, currentColumn, previousRow, previousColumn){
 
-    const previousPlayer = this.tiles[previousRow][previousColumn].player
-    let nextPlayer;
-
-    if (this.tiles[currentRow][currentColumn]){
-      nextPlayer = this.tiles[currentRow][currentColumn].player
-    }
-    
-    if ( previousPlayer != this.currentPlayer){
+    if ( this.previousPiece.player != this.currentPlayer){
       return false;
     }
 
@@ -85,11 +75,14 @@ class Board {
       return false;
     }
 
-    if((this.tiles[currentRow][currentColumn] == null || nextPlayer !== this.currentPlayer) && currentRow <= previousRow + 1 && currentRow >= previousRow -1 && currentColumn <= this.previousColumn + 1 && currentColumn >= this.previousColumn - 1){
-      return true 
-    } else {
-      return false;
-    }
+    return (
+      (this.currentPiece == null || this.currentPiece.player !== this.currentPlayer) && 
+      currentRow <= previousRow + 1 && 
+      currentRow >= previousRow -1 && 
+      currentColumn <= this.previousColumn + 1 && 
+      currentColumn >= this.previousColumn - 1
+    )
+
   }
 
   render(){
@@ -124,7 +117,7 @@ class Board {
         if (this.tiles[r][c]){
           this.ctx.fillStyle = this.tiles[r][c].color;
           this.ctx.font = "26px Arial";
-          this.ctx.fillText(this.tiles[r][c].rank, tileX+25, tileY+45);
+          this.ctx.fillText(this.tiles[r][c].val, tileX+25, tileY+45);
         }
         this.ctx.closePath();        
       }
