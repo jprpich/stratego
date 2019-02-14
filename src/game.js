@@ -16,7 +16,7 @@ class Game {
       } else {
         if (this.board.validMove(row, column, this.board.previousRow, this.board.previousColumn )){
           if (this.board.currentPiece) {
-            if(this.board.currentPiece.rank === "F"){
+            if(this.board.currentPiece.val === "F"){
               alert(`${this.board.previousPiece.player} wins!`)
               document.location.reload();
             }           

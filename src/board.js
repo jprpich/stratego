@@ -1,10 +1,12 @@
 const Piece = require("./piece");
 
 class Board {
-  constructor(ctx, canvas){
+  constructor(ctx, canvas, bomb, flag, captain){
     this.ctx = ctx;
     this.canvas = canvas;
-
+    this.bomb = bomb
+    this.flag = flag;
+    this.captain = captain;
     this.tiles = []
     this.pieces = ["F",2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,1,'S','B','B','B','B','B','B',9,9,9,9,9,9,9,9,9,9,9]
     this.createPieces()
@@ -115,9 +117,24 @@ class Board {
         this.ctx.strokeStyle = "#401b0f";
         this.ctx.stroke();
         if (this.tiles[r][c]){
-          this.ctx.fillStyle = this.tiles[r][c].color;
-          this.ctx.font = "26px Arial";
-          this.ctx.fillText(this.tiles[r][c].val, tileX+25, tileY+45);
+          if (this.tiles[r][c].val === "B"){
+            
+            this.ctx.drawImage(this.bomb, tileX+10, tileY+10, 50, 50);
+          } else if(this.tiles[r][c].val === "F") {
+            this.ctx.drawImage(this.flag, tileX+10, tileY+10, 50, 50);
+          } else if(this.tiles[r][c].val === 1){
+            this.ctx.fillStyle = this.tiles[r][c].color;
+            this.ctx.font = "20px Arial";
+            this.ctx.fillText(this.tiles[r][c].val, tileX+5, tileY+20);
+            this.ctx.drawImage(this.captain, tileX+10, tileY+10, 70, 70);
+          }
+          else {
+            this.ctx.fillStyle = this.tiles[r][c].color;
+            this.ctx.font = "26px Arial";
+            this.ctx.fillText(this.tiles[r][c].val, tileX+25, tileY+45);
+          }
+          
+          
         }
         this.ctx.closePath();        
       }

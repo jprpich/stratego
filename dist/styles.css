@@ -1,7 +1,7 @@
 * { padding: 0; margin: 0; }
 canvas { background: #eee; display: block; margin: 10px auto;}
 body {
-  background-image: url("http://www.drewcampbell.net/stratego/bombsetup1.jpg");
+  background: #5eb549;
 }
 .container {
   display: flex;
@@ -14,4 +14,8 @@ body {
 .title {
   margin-top: 20px;
   margin-bottom: 20px;
+}
+
+#bomb, #flag, #captain{
+  display: none;
 }
