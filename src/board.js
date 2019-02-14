@@ -9,11 +9,11 @@ class Board {
     this.pieces = ["F",2,3,3,5,5,5,5,6,6,6,6,7,7,7,7,8,8,8,8,8,1,'S','B','B','B','B','B','B',9,9,9,9,9,9,9,9,9,9,9]
     this.createPieces()
 
-    this.tileWidth = 45;
-    this.tileHeight = 45;
-    this.tilePadding = 10;
-    this.tileOffsetTop = 50;
-    this.tileOffsetLeft = 50;
+    this.tileWidth = 70;
+    this.tileHeight = 70;
+    this.tilePadding = 0;
+    this.tileOffsetTop = 0;
+    this.tileOffsetLeft = 0;
 
     this.previousPiece = null;
     this.previosRow = null;
@@ -119,10 +119,12 @@ class Board {
         }
                  
         this.ctx.fill();
+        this.ctx.strokeStyle = "#401b0f";
+        this.ctx.stroke();
         if (this.tiles[r][c]){
           this.ctx.fillStyle = this.tiles[r][c].color;
           this.ctx.font = "26px Arial";
-          this.ctx.fillText(this.tiles[r][c].rank, tileX+15, tileY+30);
+          this.ctx.fillText(this.tiles[r][c].rank, tileX+25, tileY+45);
         }
         this.ctx.closePath();        
       }
@@ -130,9 +132,7 @@ class Board {
   }
 
   drawCurrentPlayer(){
-    this.ctx.font = "30px Arial";
-    this.ctx.fillStyle = "#401b0f";
-    this.ctx.fillText(this.currentPlayer + "'s Turn!", 20, 30);
+    document.getElementsByClassName("player-turn")[0].innerText = this.currentPlayer
   }
 
 }

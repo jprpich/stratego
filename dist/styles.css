@@ -1,5 +1,17 @@
 * { padding: 0; margin: 0; }
-canvas { background: #eee; display: block; margin: 20px auto;}
+canvas { background: #eee; display: block; margin: 0 auto;}
 body {
   background-image: url("http://www.drewcampbell.net/stratego/bombsetup1.jpg");
+}
+.container {
+  display: flex;
+  margin: 0 auto;
+  width: 90%;
+  color: #fcf4b1;
+  
+}
+
+.title {
+  margin-top: 20px;
+  margin-bottom: 20px;
 }

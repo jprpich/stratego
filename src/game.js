@@ -7,8 +7,8 @@ class Game {
 
   play(){
     document.addEventListener("click", (e) => {
-      let row = Math.floor(((e.offsetY-50) / 55))
-      let column = Math.floor(((e.offsetX-50) / 55))
+      let row = Math.floor(((e.offsetY) / 70))
+      let column = Math.floor(((e.offsetX) / 70))
       this.board.currentPiece = this.board.tiles[row][column]
 
       if(this.board.currentPiece && this.board.previousClick){
@@ -32,7 +32,7 @@ class Game {
           this.board.previousPiece.selected =  false;
           alert("invalid move")
         }
-        
+
         this.board.previousClick = true;
       }
 
