@@ -7,8 +7,7 @@ body {
   display: flex;
   margin: 0 auto;
   width: 90%;
-  color: #fcf4b1;
-  
+  color: #fcf4b1;  
 }
 
 .title {
@@ -16,6 +15,6 @@ body {
   margin-bottom: 20px;
 }
 
-#bomb, #flag, #captain{
+.hidden-image {
   display: none;
 }

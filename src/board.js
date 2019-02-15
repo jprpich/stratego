@@ -1,12 +1,9 @@
 const Piece = require("./piece");
 
 class Board {
-  constructor(ctx, canvas, bomb, flag, captain){
+  constructor(ctx, canvas){
     this.ctx = ctx;
     this.canvas = canvas;
-    this.bomb = bomb
-    this.flag = flag;
-    this.captain = captain;
     this.tiles = [];
     this.pieces = [];
     this.previousClick = true; 
@@ -86,7 +83,16 @@ class Board {
     const images = {
       B: document.getElementById("bomb"),
       F: document.getElementById("flag"),
-      1: document.getElementById("captain")
+      S: document.getElementById("spy"),
+      1: document.getElementById("one"),
+      2: document.getElementById("two"),
+      3: document.getElementById("three"),
+      4: document.getElementById("four"),
+      5: document.getElementById("five"),
+      6: document.getElementById("six"),
+      7: document.getElementById("seven"),
+      8: document.getElementById("eight"),
+      9: document.getElementById("nine"),
     }
     
     let tileWidth = 70;
@@ -113,20 +119,14 @@ class Board {
         this.ctx.stroke();
 
         if (currentTile){
-          if (currentTile.val === "B"){
-            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 50, 50);
-          } else if(currentTile.val === "F") {
-            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 50, 50);
-          } else if(currentTile.val === 1){
-            this.ctx.fillStyle = currentTile.color;
-            this.ctx.font = "20px Arial";
-            this.ctx.fillText(currentTile.val, tileX+5, tileY+20);
-            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 70, 70);
+          if (currentTile.val === "B" || currentTile.val === "F" || currentTile.val === "S"){
+            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 55, 55);
           }
           else {
             this.ctx.fillStyle = currentTile.color;
-            this.ctx.font = "26px Arial";
-            this.ctx.fillText(currentTile.val, tileX+25, tileY+45);
+            this.ctx.font = "20px Arial";
+            this.ctx.fillText(currentTile.val, tileX+5, tileY+20);
+            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 65, 65);
           }
         }
         this.ctx.closePath();        
