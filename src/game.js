@@ -14,22 +14,22 @@ class Game {
       if(this.board.currentPiece && this.board.previousClick){
         this.selectPiece(row, column);
       } else {
-        if (this.board.validMove(row, column, this.board.previousRow, this.board.previousColumn )){
+        if (this.board.validMove(row, column)){
           if (this.board.currentPiece) {
             if(this.board.currentPiece.val === "F"){
               alert(`${this.board.previousPiece.player} wins!`)
               document.location.reload();
             }           
             if (this.board.previousPiece.rank < this.board.currentPiece.rank){
-              this.showWin(row,column,this.board.previousRow, this.board.previousColumn);
+              this.showWin(row,column);
             } else if(this.board.previousPiece.rank === this.board.currentPiece.rank){
-              this.showTie(row,column,this.board.previousRow, this.board.previousColumn)
+              this.showTie(row,column)
             } 
             else {
-              this.showLose(this.board.previousRow, this.board.previousColumn);
+              this.showLose();
             }
           } else {
-            this.showWin(row,column,this.board.previousRow, this.board.previousColumn);
+            this.showWin(row,column);
           }
         } else {
           this.board.previousPiece.selected =  false;
@@ -43,22 +43,22 @@ class Game {
     })
   }
 
-  showTie(row, column, previousRow, previousColumn){
-    this.board.tiles[previousRow][previousColumn] = null;
+  showTie(row, column){
+    this.board.tiles[this.board.previousRow][this.board.previousColumn] = null;
     this.board.tiles[row][column] = null;
     this.board.currentPiece.selected = false;
     this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
   }
 
-  showWin(row, column, previousRow, previousColumn){
+  showWin(row, column){
     this.board.tiles[row][column] = this.board.previousPiece;
     this.board.previousPiece.selected = false;
-    this.board.tiles[previousRow][previousColumn] = null;
+    this.board.tiles[this.board.previousRow][this.board.previousColumn] = null;
     this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
   }
 
-  showLose(previousRow, previousColumn){
-    this.board.tiles[previousRow][previousColumn] = null;
+  showLose(){
+    this.board.tiles[this.board.previousRow][this.board.previousColumn] = null;
     this.board.currentPiece.selected = false;
     this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
   }
