@@ -17,7 +17,7 @@ class Game {
         if (this.board.validMove(row, column)){
           if (this.board.currentPiece) {
             if(this.board.currentPiece.val === "F"){
-              alert(`${this.board.previousPiece.player} wins!`)
+              document.getElementById("game-messages").innerText = `${this.board.previousPiece.player} wins!`
               document.location.reload();
             }           
             if ((this.board.previousPiece.rank < this.board.currentPiece.rank) || this.detonateBomb() || this.defeatMarshal()){
@@ -33,7 +33,7 @@ class Game {
           }
         } else {
           this.board.previousPiece.selected =  false;
-          alert("invalid move")
+          document.getElementById("game-messages").innerText = "Invalid Move"
         }
 
         this.board.previousClick = true;
@@ -48,11 +48,11 @@ class Game {
   }
 
   defeatMarshal(){
-    debugger
     return this.board.previousPiece.val === "S" && this.board.currentPiece.val === 1;
   }
 
   showTie(row, column){
+    document.getElementById("game-messages").innerText = `${this.board.currentPiece.val} has been traded for ${this.board.previousPiece.val}`
     this.clearPiece();
     this.board.tiles[row][column] = null;
     this.board.currentPiece.selected = false;
@@ -60,6 +60,12 @@ class Game {
   }
 
   showWin(row, column){
+    if(this.board.currentPiece){
+      document.getElementById("game-messages").innerText = `${this.board.previousPiece.val} has defeated ${this.board.currentPiece.val}`
+    } else {
+      document.getElementById("game-messages").innerText = "";
+    }
+    
     this.board.tiles[row][column] = this.board.previousPiece;
     this.board.previousPiece.selected = false;
     this.clearPiece();
@@ -67,6 +73,7 @@ class Game {
   }
 
   showLose(){
+    document.getElementById("game-messages").innerText = `${this.board.currentPiece.val} has defeated ${this.board.previousPiece.val}`
     this.clearPiece();
     this.board.currentPiece.selected = false;
     this.switchPlayer();

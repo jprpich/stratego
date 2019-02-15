@@ -33,7 +33,7 @@ class Board {
     for(let r=0; r<4; r++) {
       this.tiles[r] = [];
       for(let c=0; c<10; c++) {
-        this.tiles[r][c] = new Piece("Player 1", this.pieces.pop(), "white", false)
+        this.tiles[r][c] = new Piece("Player 1", this.pieces.pop(), "#fcf4b1", false)
       }
     }
 
@@ -134,6 +134,11 @@ class Board {
         this.ctx.beginPath();
         this.ctx.rect(tileX, tileY, tileWidth, tileHeight);
         let currentTile = this.tiles[r][c]
+        // if (currentTile && (currentTile.player === this.currentPlayer)){
+        //   currentTile.display = true;
+        // } else if(currentTile){
+        //   currentTile.display = false;
+        // }
 
         if(currentTile && currentTile.selected){
           this.ctx.fillStyle = "#c9af74"
@@ -145,14 +150,24 @@ class Board {
         this.ctx.stroke();
 
         if (currentTile){
-          if (currentTile.val === "B" || currentTile.val === "F" || currentTile.val === "S"){
-            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 55, 55);
+          if (currentTile.val === "B" || currentTile.val === "F"){
+            if (currentTile.display){
+              this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 55, 55);
+            } else {
+              this.ctx.fillStyle = "#000000"
+              this.ctx.fillRect(tileX+15, tileY+10, 40, 50);
+            } 
           }
           else {
-            this.ctx.fillStyle = currentTile.color;
-            this.ctx.font = "20px Arial";
-            this.ctx.fillText(currentTile.val, tileX+5, tileY+20);
-            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 65, 65);
+            if (currentTile.display){
+              this.ctx.fillStyle = currentTile.color;
+              this.ctx.font = "20px Arial";
+              this.ctx.fillText(currentTile.val, tileX+5, tileY+20);
+              this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 65, 65);
+            } else {
+              this.ctx.fillStyle = "#000000"
+              this.ctx.fillRect(tileX+15, tileY+10, 40, 50);
+            } 
           }
         }
         this.ctx.closePath();        
@@ -161,7 +176,7 @@ class Board {
   }
 
   drawCurrentPlayer(){
-    document.getElementsByClassName("player-turn")[0].innerText = this.currentPlayer
+    document.getElementsByClassName("player-turn")[0].innerText = `${this.currentPlayer}'s Turn. Select piece and then click to move.`
   }
 
 }
