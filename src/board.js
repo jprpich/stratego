@@ -83,6 +83,12 @@ class Board {
   }
 
   drawTiles(){
+    const images = {
+      B: document.getElementById("bomb"),
+      F: document.getElementById("flag"),
+      1: document.getElementById("captain")
+    }
+    
     let tileWidth = 70;
     let tileHeight = 70;
     let tilePadding = 0;
@@ -108,14 +114,14 @@ class Board {
 
         if (currentTile){
           if (currentTile.val === "B"){
-            this.ctx.drawImage(this.bomb, tileX+10, tileY+10, 50, 50);
+            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 50, 50);
           } else if(currentTile.val === "F") {
-            this.ctx.drawImage(this.flag, tileX+10, tileY+10, 50, 50);
+            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 50, 50);
           } else if(currentTile.val === 1){
             this.ctx.fillStyle = currentTile.color;
             this.ctx.font = "20px Arial";
             this.ctx.fillText(currentTile.val, tileX+5, tileY+20);
-            this.ctx.drawImage(this.captain, tileX+10, tileY+10, 70, 70);
+            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 70, 70);
           }
           else {
             this.ctx.fillStyle = currentTile.color;

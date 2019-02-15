@@ -44,23 +44,23 @@ class Game {
   }
 
   showTie(row, column){
-    this.board.tiles[this.board.previousRow][this.board.previousColumn] = null;
+    this.clearPiece();
     this.board.tiles[row][column] = null;
     this.board.currentPiece.selected = false;
-    this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
+    this.switchPlayer();
   }
 
   showWin(row, column){
     this.board.tiles[row][column] = this.board.previousPiece;
     this.board.previousPiece.selected = false;
-    this.board.tiles[this.board.previousRow][this.board.previousColumn] = null;
-    this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
+    this.clearPiece();
+    this.switchPlayer();
   }
 
   showLose(){
-    this.board.tiles[this.board.previousRow][this.board.previousColumn] = null;
+    this.clearPiece();
     this.board.currentPiece.selected = false;
-    this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
+    this.switchPlayer();
   }
 
   selectPiece(row, column){
@@ -69,6 +69,14 @@ class Game {
     this.board.previousRow = row;
     this.board.previousColumn = column;
     this.board.previousClick = false;
+  }
+
+  clearPiece(){
+    this.board.tiles[this.board.previousRow][this.board.previousColumn] = null;
+  }
+
+  switchPlayer(){
+    this.board.currentPlayer = this.board.currentPlayer === "Player 1" ? "Player 2" : "Player 1"
   }
 
 }
