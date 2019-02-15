@@ -55,10 +55,36 @@ class Board {
 
 
   validMove(row, column){
+
+    if ( 
+      this.previousPiece.val === 9 && 
+      (this.currentPiece == null) && (
+      row > this.previousRow + 1 || 
+      row < this.previousRow -1 || 
+      column > this.previousColumn + 1 ||
+      column < this.previousColumn - 1
+      )
+    ){
+      if (this.previousPiece.player != this.currentPlayer){
+        return false;
+      } else {
+        return true 
+      }
+    }
+        
+    if (this.previousPiece.val === "B" || this.previousPiece.val === "F"){
+      return false;
+    }
+
     if ( this.previousPiece.player != this.currentPlayer){
       return false;
     }
 
+    return this.validSingleTileMove(row, column)
+    
+  }
+
+  validSingleTileMove(row, column){
     if(this.previousColumn != column && this.previousRow != row){
       return false;
     }

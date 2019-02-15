@@ -20,7 +20,7 @@ class Game {
               alert(`${this.board.previousPiece.player} wins!`)
               document.location.reload();
             }           
-            if (this.board.previousPiece.rank < this.board.currentPiece.rank){
+            if ((this.board.previousPiece.rank < this.board.currentPiece.rank) || this.detonateBomb() || this.defeatMarshal()){
               this.showWin(row,column);
             } else if(this.board.previousPiece.rank === this.board.currentPiece.rank){
               this.showTie(row,column)
@@ -41,6 +41,15 @@ class Game {
 
       this.board.render();
     })
+  }
+
+  detonateBomb(){
+    return this.board.previousPiece.rank === 8 && this.board.currentPiece.val === "B";
+  }
+
+  defeatMarshal(){
+    debugger
+    return this.board.previousPiece.val === "S" && this.board.currentPiece.val === 1;
   }
 
   showTie(row, column){
