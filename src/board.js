@@ -65,7 +65,10 @@ class Board {
       column < this.previousColumn - 1
       )
     ){
-      if (this.previousPiece.player != this.currentPlayer){
+      if (
+        this.previousPiece.player != this.currentPlayer || 
+        this.previousColumn != column && this.previousRow != row
+      ){
         return false;
       } else {
         return true 
@@ -134,11 +137,6 @@ class Board {
         this.ctx.beginPath();
         this.ctx.rect(tileX, tileY, tileWidth, tileHeight);
         let currentTile = this.tiles[r][c]
-        // if (currentTile && (currentTile.player === this.currentPlayer)){
-        //   currentTile.display = true;
-        // } else if(currentTile){
-        //   currentTile.display = false;
-        // }
 
         if(currentTile && currentTile.selected){
           this.ctx.fillStyle = "#c9af74"
@@ -151,23 +149,13 @@ class Board {
 
         if (currentTile){
           if (currentTile.val === "B" || currentTile.val === "F"){
-            if (currentTile.display){
-              this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 55, 55);
-            } else {
-              this.ctx.fillStyle = "#000000"
-              this.ctx.fillRect(tileX+15, tileY+10, 40, 50);
-            } 
+            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 55, 55);
           }
           else {
-            if (currentTile.display){
-              this.ctx.fillStyle = currentTile.color;
-              this.ctx.font = "20px Arial";
-              this.ctx.fillText(currentTile.val, tileX+5, tileY+20);
-              this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 65, 65);
-            } else {
-              this.ctx.fillStyle = "#000000"
-              this.ctx.fillRect(tileX+15, tileY+10, 40, 50);
-            } 
+            this.ctx.fillStyle = currentTile.color;
+            this.ctx.font = "20px Arial";
+            this.ctx.fillText(currentTile.val, tileX+5, tileY+20);
+            this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 65, 65);
           }
         }
         this.ctx.closePath();        

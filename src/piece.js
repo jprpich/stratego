@@ -5,7 +5,6 @@ class Piece{
     this.rank = 0;
     this.color = color;
     this.selected = selected;
-    this.display = true; 
     this.asignRank(val)
   }
 
