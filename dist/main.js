@@ -115,7 +115,7 @@ eval("class Game {\n  constructor(board){\n    this.board = board;\n    this.pla
 /*! no static exports found */
 /***/ (function(module, exports, __webpack_require__) {
 
-eval("const Board = __webpack_require__(/*! ./board */ \"./src/board.js\");\nconst Game = __webpack_require__(/*! ./game */ \"./src/game.js\");\n\n\ndocument.addEventListener(\"DOMContentLoaded\", function(){\n  var canvas = document.getElementById(\"myCanvas\");\n  var ctx = canvas.getContext(\"2d\");\n  debugger\n  $(\".container\").imagesLoaded( function() {\n    const board = new Board(ctx, canvas)\n    new Game(board)\n  });\n})\n\n//# sourceURL=webpack:///./src/index.js?");
+eval("const Board = __webpack_require__(/*! ./board */ \"./src/board.js\");\nconst Game = __webpack_require__(/*! ./game */ \"./src/game.js\");\n\n\ndocument.addEventListener(\"DOMContentLoaded\", function(){\n  var canvas = document.getElementById(\"myCanvas\");\n  var ctx = canvas.getContext(\"2d\");\n  $(\".container\").imagesLoaded( function() {\n    const board = new Board(ctx, canvas)\n    new Game(board)\n  });\n})\n\n//# sourceURL=webpack:///./src/index.js?");
 
 /***/ }),
 
