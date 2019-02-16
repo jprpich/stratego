@@ -17,7 +17,7 @@ class Game {
         if (this.board.validMove(row, column)){
           if (this.board.currentPiece) {
             if(this.board.currentPiece.val === "F"){
-              document.getElementById("game-messages").innerText = `${this.board.previousPiece.player} wins!`
+              alert(`${this.board.previousPiece.player} wins!`)
               document.location.reload();
             }           
             if ((this.board.previousPiece.rank < this.board.currentPiece.rank) || this.detonateBomb() || this.defeatMarshal()){

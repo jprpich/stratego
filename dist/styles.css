@@ -5,12 +5,42 @@ body {
 }
 .container {
   display: flex;
-  width: 1100px;
+  justify-content: space-between;
+  width: 1400px;
+  color: #fcf4b1;
+}
+
+p {
+  font-size: 20px;
+}
+
+p.name {
+  margin-top: 20px;
+  margin-bottom: 20px;
+}
+
+a {
+  text-decoration: none;
+}
+
+a:link {
+  color: #401b0f;
+}
+
+a:visited {
+  color: #401b0f;
+}
+
+a:hover {
   color: #fcf4b1;
 }
 
 .left-side {
-  width: 900px;
+  width: 200px;
+}
+
+.social {
+  width: 200px;
 }
 
 .container div {

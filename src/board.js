@@ -139,9 +139,9 @@ class Board {
         let currentTile = this.tiles[r][c]
 
         if(currentTile && currentTile.selected){
-          this.ctx.fillStyle = "#c9af74"
+          this.ctx.fillStyle = "#4d953c"
         } else {
-          this.ctx.fillStyle = "#c7433d"
+          this.ctx.fillStyle = "#5eb549"
         }                 
         this.ctx.fill();
         this.ctx.strokeStyle = "#401b0f";
