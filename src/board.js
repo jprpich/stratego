@@ -55,7 +55,10 @@ class Board {
 
 
   validMove(row, column){
-
+    if (this.insideLake(row, column)){
+      alert("Can not move inside the lake!")
+      return false; 
+    }
     if ( 
       this.previousPiece.val === 9 && 
       (this.currentPiece == null) && (
@@ -101,11 +104,27 @@ class Board {
     )
   }
 
+  insideLake(row, column){
+    return (
+      (row >= 4 && row <=5) && (
+      (column >= 2 && column <=3) || 
+      (column >= 6 && column <= 7)  
+      )
+    )
+  }
+
   render(){
     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
     this.ctx.fillRect(0, 0, this.canvas.width, this.canvas.height);
     this.drawTiles();
     this.drawCurrentPlayer();
+    this.drawLakes();
+  }
+
+  drawLakes(){
+    this.ctx.fillStyle = '#49b1c5';
+    this.ctx.fillRect(140, 280, 140, 140);
+    this.ctx.fillRect(420, 280, 140, 140);
   }
 
   drawTiles(){
@@ -158,6 +177,8 @@ class Board {
             this.ctx.drawImage(images[currentTile.val], tileX+10, tileY+10, 65, 65);
           }
         }
+
+
         this.ctx.closePath();        
       }
     }
