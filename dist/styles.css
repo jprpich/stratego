@@ -50,3 +50,14 @@ a:hover {
 .hidden-image {
   display: none;
 }
+
+div.instructions {
+  color: black;
+  margin: 0px;
+  margin-top: 40px;
+  
+}
+.instructions-title {
+  color: #fcf4b1;
+  margin-bottom: 5px;
+}
