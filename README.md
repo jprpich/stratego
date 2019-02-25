@@ -13,6 +13,34 @@ Stratego is a game where skillful planning, clever deception and good memory wor
 
 This simulation will incorporate several mvps and bonus features outlined in the **Functionality & MVP** and **Bonus Features** sections.  
 
+
+### Object Oriented Programming 
+
+This game was built using three classes with their respective methods. 
+- [ ] game
+  - [ ] play
+  - [ ] detonateBomb
+  - [ ] defeatMarshal
+  - [ ] showTie
+  - [ ] showWin 
+  - [ ] showLose
+  - [ ] selectPiece
+  - [ ] clearPiece
+  - [ ] switchPlayer
+- [ ] board
+  - [ ] shufflePieces
+  - [ ] createPieces
+  - [ ] validMove
+  - [ ] validSingleTileMove
+  - [ ] insideLake
+  - [ ] render
+  - [ ] drawLakes
+  - [ ] drawTiles
+  - [ ] drawCurrentPlayer
+- [ ] piece 
+  - [ ] asignRank
+
+
 ### Functionality & MVP  
 
 With this Josh's Stratego, users will be able to:
@@ -22,7 +50,7 @@ With this Josh's Stratego, users will be able to:
 
 In addition, this project will include:
 
-- [ ] An About modal describing the background and rules of the game
+- [ ] An About section describing the background and rules of the game
 - [ ] A production README
 
 ### Wireframes
