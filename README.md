@@ -1,9 +1,11 @@
-## JS Project Proposal: Josh's Stratego 
+
+## Josh's Stratego 
 
 ### Background
 
 Stratego is a game where skillful planning, clever deception and good memory work are used to defeat your opponent. Every time you play the battle is different. 
 
+![wireframes](https://github.com/jprpich/stratego/blob/master/initial.png)
 
 1) Pieces move one square at a time, forward, backward or sideways.
 2) Pieces cannot move diagonally. They cannot jump over another piece. They cannot move onto a square already occupied by another piece (unless attacking).
