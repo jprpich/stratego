@@ -10,6 +10,8 @@ Stratego is a game where skillful planning, clever deception and good memory wor
 1) Pieces move one square at a time, forward, backward or sideways.
 2) Pieces cannot move diagonally. They cannot jump over another piece. They cannot move onto a square already occupied by another piece (unless attacking).
 3) Only one piece can be moved on a turn.
+4) Smaller numbers beat higher numbers. 
+5) You must capture your opponents flag to win. 
 
 This simulation will incorporate several mvps and bonus features outlined in the **Functionality & MVP** and **Bonus Features** sections.  
 
