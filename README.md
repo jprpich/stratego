@@ -71,17 +71,6 @@ This project will be implemented with the following technologies:
 - Webpack
 
 
-### Implementation Timeline
-
-**Day 1**: Setup all necessary Node modules, including getting webpack up and running.
-
-- Render Board and Pieces. Create Tile class. 
-
-**Day 2**: Setup Piece Class and make basic moves. Setup valid move logic
-
-**Day 3**: Handle game logic for defeating pieces and capturing flag.
-
-
 ### Bonus features
 
 - [ ] Add bombs that can only be destroy by the 8 piece.
