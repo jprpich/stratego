@@ -1,5 +1,12 @@
 ## Josh's Stratego 
 
+## Technologies
+- [ ] JavaScript
+- [ ] HTML5 Canvas
+- [ ] CSS
+- [ ] Webpack
+
+
 ### Background
 
 Stratego is a game where skillful planning, clever deception and good memory work are used to defeat your opponent. Every time you play the battle is different. 
