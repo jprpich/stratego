@@ -1,5 +1,7 @@
 ## Josh's Stratego 
 
+[Live Site](https://jprpich.github.io/stratego)
+
 ## Technologies
 - [ ] JavaScript
 - [ ] HTML5 Canvas
